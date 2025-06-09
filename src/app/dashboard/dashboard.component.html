@@ -1,0 +1,54 @@
+<div class="dashboard-container" fxLayout="column" fxLayoutGap="20px">
+  <!-- Resource Cards -->
+  <div class="cards-grid" fxLayout="row wrap" fxLayoutGap="16px">
+    <mat-card class="card">
+      <mat-card-title><mat-icon>list_alt</mat-icon> Disciplines</mat-card-title>
+      <mat-card-content>{{ nbDisciplines }}</mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title><mat-icon>gradient</mat-icon> Specialities</mat-card-title>
+      <mat-card-content>{{ nbSpecialities }}</mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title><mat-icon>group</mat-icon> Users</mat-card-title>
+      <mat-card-content>{{ nbUsers }}</mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title><mat-icon>school</mat-icon> Courses</mat-card-title>
+      <mat-card-content>{{ nbCourses }}</mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-grid" fxLayout="row wrap" fxLayoutGap="16px" *ngIf="!isLoading">
+    <div class="chart-wrapper" fxFlex="50" fxFlex.lt-md="100">
+      <mat-card>
+        <mat-card-title>Active vs Inactive Users</mat-card-title>
+        <canvas baseChart
+                [type]="'pie'"
+                [datasets]="chartDataPie"
+                [labels]="chartLabelsPie"
+                [options]="chartOptions"
+                width="300"
+                height="300">
+        </canvas>
+      </mat-card>
+    </div>
+    <div class="chart-wrapper" fxFlex="50" fxFlex.lt-md="100">
+      <mat-card>
+        <mat-card-title>Teachers vs Students</mat-card-title>
+        <canvas baseChart
+                [type]="'bar'"
+                [datasets]="chartDataBar"
+                [labels]="chartLabelsBar"
+                [options]="chartOptions"
+                width="300"
+                height="300">
+        </canvas>
+      </mat-card>
+    </div>
+  </div>
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+  </div>
+</div>

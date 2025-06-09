@@ -1,0 +1,87 @@
+  <app-header></app-header>
+  <div class="parent">
+    <div class="container" [ngClass]="isSignDivVisiable ? 'active' : ''" id="container">
+      <div class="form-container sign-up">
+        <form>
+          <h1 id="properties">Créer un compte</h1>
+          <div class="social-icons">
+
+          </div>
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" name="name" [(ngModel)]="name" placeholder="Nom complet">
+          </div>
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" name="first_name" [(ngModel)]="first_name" placeholder="nom">
+          </div>
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" name="last_name" [(ngModel)]="last_name" placeholder="prenom">
+          </div>
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" name="avatar" [(ngModel)]="avatar" placeholder="Avatar">
+          </div>
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="email" [(ngModel)]="email" placeholder="Adresse email">
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" [(ngModel)]="password" placeholder="Mot de passe">
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="confirmpassword" [(ngModel)]="confirmpassword" placeholder="Confirmer le mot de passe">
+          </div>
+          <div class="input-group role-selector">
+            <label><input type="radio" name="role" [(ngModel)]="selectedRole" value="student"> Étudiant</label>
+            <label><input type="radio" name="role" [(ngModel)]="selectedRole" value="teacher"> Enseignant</label>
+        
+          </div>
+          <button type="button" (click)="onRegister()">S'inscrire</button>
+        </form>
+      </div>
+      <div class="form-container sign-in">
+        <form>
+          <h1 id="properties">Connexion</h1>
+          <div class="social-icons">
+            <a href="#" class="icon"><i class="fa-brands fa-google"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" [(ngModel)]="email" name="email" placeholder="Adresse email" required>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
+          </div>
+          <div class="input-group role-selector">
+            <label><input type="radio" name="role" [(ngModel)]="selectedRole" value="student"> Étudiant</label>
+            <label><input type="radio" name="role" [(ngModel)]="selectedRole" value="teacher"> Enseignant</label>
+            <label><input type="radio" name="role" [(ngModel)]="selectedRole" value="admin"> Admin</label>
+          </div>
+          <a href="#">Mot de passe oublié ?</a>
+          <button type="button" (click)="login()">Se connecter</button>
+        </form>
+      </div>
+      <div class="toggle-container">
+        <div class="toggle">
+          <div class="toggle-panel toggle-left">
+            <h1>Content de vous revoir !</h1>
+            <p>Connectez-vous pour accéder à votre espace personnel et profiter de toutes nos fonctionnalités.</p>
+            <button type="button" class="hidden" id="login" (click)="isSignDivVisiable = false">Se connecter</button>
+          </div>
+          <div class="toggle-panel toggle-right">
+            <h1>Première visite ?</h1>
+            <p>Inscrivez-vous et découvrez tous les avantages de notre plateforme en quelques clics seulement.</p>
+            <button type="button" class="hidden" id="register" (click)="isSignDivVisiable = true">S'inscrire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

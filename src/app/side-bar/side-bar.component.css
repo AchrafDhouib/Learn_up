@@ -1,0 +1,7 @@
+.mat-toolbar.mat-primary {
+    --mat-toolbar-container-background-color : #3a70c2!important ;
+    --mat-toolbar-container-text-color : white;
+}
+.mat-drawer {
+    color:#4a4a4a!important;
+}

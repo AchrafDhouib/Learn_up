@@ -1,0 +1,56 @@
+<div class="reservations-container">
+  <h2 class="reservations-title">Gestion des Réservations</h2>
+  
+  <div class="table-responsive">
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Rechercher un client..." [(ngModel)]="searchText">
+      </div>
+    
+      <table class="reservations-table">
+          <thead>
+              <tr class="table-header">
+                  <th class="client-column">Client</th>
+                  <th class="hotel-column">Établissement</th>
+                  <th class="room-column">Chambre</th>
+                  <th class="date-column">Arrivée</th>
+                  <th class="date-column">Départ</th>
+                  <th class="status-column">Statut</th>
+                  <th class="actions-column">Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let reservation of reservations" class="reservation-row">
+                <ng-container *ngIf="reservation.client.name.toLowerCase().includes(searchText.toLowerCase())">
+
+                  <td>{{ reservation.client.name }}</td>
+                  <td>{{ reservation.chambre.hotel.nom }}</td>
+                  <td>{{ reservation.chambre.type_chambre }}</td>
+                  <td>{{ reservation.date_debut | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ reservation.date_fin | date:'dd/MM/yyyy' }}</td>
+                  <td>
+                      <span class="status-badge" [ngStyle]="getStatusStyle(reservation.status)" [class.confirmed]="reservation.status === 'confirmé'"
+                                            [class.pending]="reservation.status === 'en attente'"
+                                            [class.cancelled]="reservation.status === 'annulé'">
+                          {{ reservation.status }}
+                      </span>
+                  </td>
+                  <td class="actions-cell">
+                      <button class="btn-confirm" (click)="confirmReservation(reservation.id)">
+                          <i class="fas fa-check"></i> Confirmer
+                      </button>
+                      <button class="btn-cancel" (click)="cancelReservation(reservation.id)">
+                          <i class="fas fa-times"></i> Annuler
+                      </button>
+                  </td>
+                </ng-container>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>

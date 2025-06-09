@@ -1,0 +1,187 @@
+<!-- Hero Section -->
+<!-- <section class="hero" #heroSection>
+  <div class="hero-overlay"></div>
+    <div class="container">
+      <!-- <div class="hero-content">
+        <h1 class="hero-title">Découvrez le luxe réinventé</h1>
+        <p class="hero-subtitle">Notre hôtel allie élégance contemporaine et confort exceptionnel pour une expérience inoubliable au cœur de la ville.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn btn-primary btn-large">Réserver maintenant</a>
+          <a href="#rooms" class="btn btn-outline">Voir nos chambres</a>
+        </div>
+      </div> -->
+      <!-- <span *ngIf="userName">Bienvenue {{ userName }} </span>
+    </div>
+  </section> -->
+  <section class="hero" #heroSection>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="welcome-message" *ngIf="userName">
+        <div class="welcome-text">Bienvenue</div>
+        <div class="user-name">{{ userName }}</div>
+        <div class="welcome-decoration">
+          <div class="decoration-line"></div>
+          <i class="fas fa-gem"></i>
+          <div class="decoration-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Features Section -->
+  <section class="features section-padding">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Nos Packs Exclusifs</h2>
+        <p class="section-subtitle">Découvrez nos packs offerts par notre plateforme</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3>Pack Certification Express</h3>
+          <p>Accès à un parcours accéléré pour obtenir une certification officielle.</p>
+          <a href="#" class="feature-link">Découvrir<i class="fas fa-chevron-right"></i></a>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+
+          <h3>Pack Carrière Pro</h3>
+          <p>Accès à tous les cours orientés carrière (CV, entretiens, communication).</p>
+          <a href="#" class="feature-link">Découvrir<i class="fas fa-chevron-right"></i></a>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3>Pack Étudiant+</h3>
+          <p>Réduction sur l'abonnement.</p>
+          <a href="#" class="feature-link">Découvrir<i class="fas fa-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms Section -->
+  <section class="rooms section-padding bg-light" id="rooms">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Nos Discplines</h2>
+        <p class="section-subtitle">Découvrez les disciplines disponibles</p>
+      </div>
+
+      <div class="rooms-grid">
+        <div class="room-card">
+          <div class="room-img">
+            <img src="https://media.gettyimages.com/id/1219382595/fr/vectoriel/%C3%A9quations-math%C3%A9matiques-%C3%A9crites-sur-un-tableau-noir.jpg?s=612x612&w=gi&k=20&c=4z2VvZgHBu4v5kCWeM046mFhaYN-t9SNTJuhoZdfeKg=" alt="Chambre Deluxe" loading="lazy">
+            
+          </div>
+          <div class="room-info">
+            <h3>Sciences & mathématiques</h3>
+            <p class="room-description">Redécouvrez les bases scientifiques et mathématiques avec clarté</p>
+            <div class="room-features">
+              <span><i class="fas fa-square"></i>Mathématiques générales</span>
+              <span><i class="fas fa-square"></i>Physique / Chimie</span>
+              <span><i class="fas fa-square"></i>Biologie</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">
+                <span class="price">250DT</span>
+                <span class="price-label">/Mois</span>
+              </div>
+              <!-- <a href="#" class="btn btn-primary">Réserver</a> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="room-card">
+          <div class="room-img">
+            <img src="https://www.sciencespo.fr/students/fr/static/91ebcceca8625a4ab93209803b660bf2/826b9/questions_frequentes_langues_sciencespo_987332c270.jpg" alt="Suite Executive" loading="lazy">
+          </div>
+          <div class="room-info">
+            <h3>Langues</h3>
+            <p class="room-description">Parlez, comprenez et progressez en langues étrangères à votre rythme</p>
+            <div class="room-features">
+              <span><i class="fas fa-square"></i>Anglais (général, professionnel, TOEIC, IELTS…)</span>
+              <span><i class="fas fa-square"></i>Espagnol</span>
+              <span><i class="fas fa-square"></i>Allemand</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">
+                <span class="price">200DT</span>
+                <span class="price-label">/Mois</span>
+              </div>
+              <!-- <a href="#" class="btn btn-primary">Réserver</a> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="room-card">
+          <div class="room-img">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDl2H7l3-bb3-5T0eONkvwdiW1uCZk8LtzjA&s" alt="Suite Présidentielle" loading="lazy">
+          </div>
+          <div class="room-info">
+            <h3>Arts & loisirs</h3>
+            <p class="room-description">Développez vos talents artistiques ou explorez de nouvelles passions</p>
+            <div class="room-features">
+              <span><i class="fas fa-square"></i>Musique</span>
+              <span><i class="fas fa-square"></i>Peinture, sculpture</span>
+              <span><i class="fas fa-square"></i>Écriture créative</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">
+                <span class="price">150DT</span>
+                <span class="price-label">/Mois</span>
+              </div>
+              <!-- <a href="#" class="btn btn-primary">Réserver</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="text-center mt-4">
+        <a href="#" class="btn btn-outline">Voir toutes nos chambres</a>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+   <!-- Section Commentaires dynamiques -->
+   <section class="testimonials section-padding" *ngIf="commentaires && commentaires.length > 0">
+    <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Témoignages</h2>
+      <p class="section-subtitle">Ce que nos clients disent de leur expérience</p>
+      <p>Nombre de commentaires: {{ commentaires.length }}</p>
+
+    </div>
+
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card" *ngFor="let com of commentaires">
+        <div class="testimonial-rating">
+          <i *ngFor="let i of [1,2,3,4,5]; let idx = index" class="fas" [ngClass]="{'fa-star': idx < com.note, 'fa-star-half-alt': idx === com.note - 0.5, 'fa-star-o': idx >= com.note}"></i>
+        </div>
+        <div class="testimonial-content">
+          <p>{{ com.message }}</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-img">
+            <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="client" loading="lazy">
+          </div>
+          <div class="author-info">
+            <h4>{{ com.client.name || 'Client' }}</h4>
+            <p>Hôtel : {{ com.hotel.nom || 'N/A' }}</p>
+            <!-- <span class="author-stay">{{ com.created_at | date:'MMMM yyyy' }}</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

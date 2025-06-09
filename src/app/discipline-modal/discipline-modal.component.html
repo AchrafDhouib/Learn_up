@@ -1,0 +1,21 @@
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field class="example-form-field">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" placeholder="Name" required />
+  </mat-form-field>
+
+  <mat-form-field class="example-form-field">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" placeholder="Description" required></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-form-field">
+    <mat-label>Image</mat-label>
+    <input matInput formControlName="image" placeholder="Image filename" required />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,107 @@
+<div class="container mt-4">
+    <h2>Chambres de l'hôtel "{{ hotelNom }}"</h2>
+    <div class="rooms-actions">
+        <button (click)="openModalForAdd()" class="btn btn-primary">
+          <i class="fas fa-plus-circle"></i> Ajouter un cour 
+        </button>
+      </div>
+  
+    <div *ngIf="chambres.length > 0; else noChambres">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let chambre of chambres">
+          <div class="card h-100">
+            <img [src]="chambre.image_chambre" class="card-img-top" alt="Image de la chambre">
+            <div class="card-body">
+              <h5 class="card-title">Chambre {{ chambre.numero }} - {{ chambre.type_chambre }}</h5>
+              <p class="card-text">
+                <strong>Prix par nuit :</strong> {{ chambre.prixparnuit | currency:'EUR' }}<br>
+                <strong>Prix avec remise :</strong> {{ chambre.prix_avec_remise | currency:'EUR' }}<br>
+                <strong>Disponibilité :</strong> 
+                <span [ngClass]="chambre.disponibilite ? 'text-success' : 'text-danger'">
+                  {{ chambre.disponibilite ? 'Disponible' : 'Indisponible' }}
+                </span>
+                <td>
+                    <button (click)="editRoom(chambre)" class="btn btn-sm btn-warning me-2">
+                      <i class="fas fa-edit"></i> Modifier
+                    </button>
+                    <button (click)="deleteRoom(chambre.id)" class="btn btn-sm btn-danger">
+                      <i class="fas fa-trash-alt"></i> Supprimer
+                    </button>
+                  </td>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noChambres>
+      <div class="alert alert-info mt-4">
+        Aucune chambre trouvée pour cet hôtel.
+      </div>
+    </ng-template>
+  </div>
+
+
+    <!-- Modal pour ajouter/modifier une chambre -->
+    <div class="modal fade" id="roomModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                <i class="fas" [class.fa-plus-circle]="!editMode" [class.fa-edit]="editMode"></i>
+                {{ editMode ? 'Modifier la chambre' : 'Ajouter une chambre' }}
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label class="form-label">Image de la chambre</label>
+                    <input [(ngModel)]="newRoom.image_chambre" class="form-control" placeholder="Image de la chambre">
+                </div>
+                  
+
+              <div class="mb-3">
+                <label class="form-label">Numéro</label>
+                <input [(ngModel)]="newRoom.numero" class="form-control" placeholder="Numéro de la chambre">
+              </div>
+      
+              <div class="mb-3">
+                <label class="form-label">Type</label>
+                <select [(ngModel)]="newRoom.type_chambre" class="form-select">
+                  <option *ngFor="let type of chambreTypes" [value]="type">{{ type }}</option>
+                </select>
+              </div>
+      
+              <div class="mb-3">
+                <label class="form-label">Prix par nuit (DT)</label>
+                <input type="number" [(ngModel)]="newRoom.prixparnuit" class="form-control" placeholder="Prix par nuit">
+              </div>
+      
+              <div class="mb-3">
+                <label class="form-label">Disponibilité</label>
+                <select [(ngModel)]="newRoom.disponibilite" class="form-select">
+                  <option [value]="true">Disponible</option>
+                  <option [value]="false">Réservée</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-primary" (click)="saveRoom()">
+                {{ editMode ? 'Enregistrer' : 'Ajouter' }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <tr *ngIf="filteredChambres.length === 0">
+          <td colspan="5" class="no-results">
+            <i class="fas fa-bed"></i>
+            Aucune chambre ne correspond aux critères sélectionnés.
+          </td>
+        </tr>
+      
+      </div>
+      
+  

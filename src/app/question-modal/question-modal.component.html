@@ -1,0 +1,21 @@
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field class="example-form-field">
+    <mat-label>Question</mat-label>
+    <input matInput formControlName="question" placeholder="Question" required />
+  </mat-form-field>
+
+  <mat-form-field class="example-form-field">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type" required>
+      <mat-option *ngFor="let type of questionTypes" [value]="type">
+        {{type}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-button (click)="openAnswer()" *ngIf="form.value.id">Add Answer</button>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+</mat-dialog-actions>

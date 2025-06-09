@@ -1,0 +1,39 @@
+<div class="reservations-container">
+    <h2 class="reservations-title">Liste de Réservations {{ userName }} </h2>
+    <div class="table-responsive">
+        <table class="reservations-table">
+            <thead>
+                <tr class="table-header">
+                    <th class="client-column">Client</th>
+                    <th class="hotel-column">Établissement</th>
+                    <th class="room-column">Chambre</th>
+                    <th class="date-column">Arrivée</th>
+                    <th class="date-column">Départ</th>
+                    <th class="status-column">Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let reservation of reservations" class="reservation-row">
+                    <td>{{ reservation.client.name }}</td>
+                    <td>{{ reservation.chambre.hotel.nom }}</td>
+                    <td>{{ reservation.chambre.type_chambre }}</td>
+                    <td>{{ reservation.date_debut | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ reservation.date_fin | date:'dd/MM/yyyy' }}</td>
+                    <td>
+                        <span class="status-badge" [class.confirmed]="reservation.status === 'confirmé'"
+                                              [class.pending]="reservation.status === 'en attente'"
+                                              [class.cancelled]="reservation.status === 'annulé'">
+                            {{ reservation.status }}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

@@ -1,0 +1,103 @@
+
+<div class="commentaires-container">
+  <h2 class="commentaires-title">Gestion des Commentaires</h2>
+
+  <div class="search-box">
+    <i class="fas fa-search"></i>
+    <input type="text" placeholder="Rechercher un client..." [(ngModel)]="searchText">
+  </div>
+
+  
+
+  
+  <div class="table-responsive">
+    <table class="commentaires-table">
+      <thead>
+        <tr class="table-header">
+          <th>Etudiant</th>
+          <th>Cour</th>
+          <th>Note</th>
+          <th>Message</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="commentaire-row" *ngFor="let commentaire of commentaires">
+          <ng-container *ngIf="commentaire.client.name.toLowerCase().includes(searchText.toLowerCase())">
+
+          <td>{{ commentaire.client.name }}</td>
+          <td>{{ commentaire.hotel.nom }}</td>
+          <td>{{ commentaire.note }}</td>
+          <td>{{ commentaire.message }}</td>
+          <td>
+
+
+            <span class="status-badge" [ngStyle]="getStatusStyle(commentaire.statut)" [class.confirmed]="commentaire.statut === 'confirmé'"
+            [class.pending]="commentaire.statut === 'en attente'"
+            [class.cancelled]="commentaire.statut === 'annulé'">
+{{ commentaire.statut }}
+</span>
+            
+            <td class="actions-cell">
+              <button class="btn-confirm" 
+                      (click)="changerStatut(commentaire.id, 'confirmer')"
+                      [disabled]="commentaire.statut === 'publié'">
+                      <i class="fas fa-check"></i> Confirmer
+
+              </button>
+              <button class="btn-cancel" 
+                      (click)="changerStatut(commentaire.id, 'rejeter')"
+                      [disabled]="commentaire.statut === 'rejeté'">
+                      <i class="fas fa-times"></i> Rejeter
+
+              </button>
+            </td>
+          </ng-container>
+
+     
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+ 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <td>
+            <button class="btn btn-success btn-sm" 
+                    (click)="changerStatut(commentaire.id, 'publié')"
+                    [disabled]="commentaire.statut === 'publié'">
+              Confirmer
+            </button>
+            <button class="btn btn-danger btn-sm" 
+                    (click)="changerStatut(commentaire.id, 'rejeté')"
+                    [disabled]="commentaire.statut === 'rejeté'">
+              Annuler
+            </button>
+          </td> -->
+  

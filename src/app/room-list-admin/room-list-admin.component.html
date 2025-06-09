@@ -1,0 +1,137 @@
+<div class="rooms-container">
+    <div class="rooms-header">
+      <h2 class="rooms-title">Chambres de l'hôtel {{ hotelName }}</h2>
+  
+      <div class="rooms-actions">
+        <button (click)="openModalForAdd()" class="btn btn-primary">
+          <i class="fas fa-plus-circle"></i> Ajouter une chambre
+        </button>
+      </div>
+      
+    </div>
+  
+    <!-- Filtres -->
+    <div class="filters">
+      <div class="filter-group">
+        <label>Type :</label>
+        <select class="form-select" (change)="onChangeType($event)">
+          <option value="">Tous les types</option>
+          <option *ngFor="let type of chambreTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+  
+      <div class="filter-group">
+        <label>Disponibilité :</label>
+        <select class="form-select" (change)="onChangeAvailability($event)">
+            <option value="">Toutes</option>
+            <option value="disponible">Disponible</option>
+            <option value="reserve">Réservée</option>
+          </select>
+          
+      </div>
+    </div>
+  
+    <!-- Liste des chambres -->
+    <div class="table-responsive">
+      <table class="rooms-table">
+        <thead class="table-dark">
+          <tr>
+            <th>Numéro</th>
+            <th>Type</th>
+            <th>Prix/nuit (DT)</th>
+            <th>Disponibilité</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chambre of filteredChambres">
+            <td>{{ chambre.numero }}</td>
+            <td>
+              <span class="badge" [ngClass]="'bg-' + getTypeColor(chambre.type_chambre)">
+                {{ chambre.type_chambre }}
+              </span>
+            </td>
+            <td>{{ chambre.prixparnuit }}</td>
+            <td>
+              <span class="badge" [ngClass]="chambre.disponibilite ? 'bg-success' : 'bg-danger'">
+                {{ chambre.disponibilite ? 'Disponible' : 'Réservée' }}
+              </span>
+            </td>
+            <td>
+              <button (click)="editRoom(chambre)" class="btn btn-sm btn-warning me-2">
+                <i class="fas fa-edit"></i> Modifier
+              </button>
+              <button (click)="deleteRoom(chambre.id)" class="btn btn-sm btn-danger">
+                <i class="fas fa-trash-alt"></i> Supprimer
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="filteredChambres.length === 0">
+            <td colspan="5" class="text-center py-4">
+              <i class="fas fa-bed fa-2x text-muted mb-3"></i>
+              <h4>Aucune chambre trouvée</h4>
+              <p class="text-muted">Aucune chambre ne correspond aux critères sélectionnés</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+  
+  <!-- Modal pour ajouter/modifier une chambre -->
+  <div class="modal fade" id="roomModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fas" [class.fa-plus-circle]="!editMode" [class.fa-edit]="editMode"></i>
+            {{ editMode ? 'Modifier la chambre' : 'Ajouter une chambre' }}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Numéro</label>
+            <input [(ngModel)]="newRoom.numero" class="form-control" placeholder="Numéro de la chambre">
+          </div>
+  
+          <div class="mb-3">
+            <label class="form-label">Type</label>
+            <select [(ngModel)]="newRoom.type_chambre" class="form-select">
+              <option *ngFor="let type of chambreTypes" [value]="type">{{ type }}</option>
+            </select>
+          </div>
+  
+          <div class="mb-3">
+            <label class="form-label">Prix par nuit (DT)</label>
+            <input type="number" [(ngModel)]="newRoom.prixparnuit" class="form-control" placeholder="Prix par nuit">
+          </div>
+  
+          <div class="mb-3">
+            <label class="form-label">Disponibilité</label>
+            <select [(ngModel)]="newRoom.disponibilite" class="form-select">
+              <option [value]="true">Disponible</option>
+              <option [value]="false">Réservée</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="saveRoom()">
+            {{ editMode ? 'Enregistrer' : 'Ajouter' }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <tr *ngIf="filteredChambres.length === 0">
+      <td colspan="5" class="no-results">
+        <i class="fas fa-bed"></i>
+        Aucune chambre ne correspond aux critères sélectionnés.
+      </td>
+    </tr>
+  
+  </div>
+  

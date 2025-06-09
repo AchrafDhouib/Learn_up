@@ -1,0 +1,193 @@
+<div class="hotels-container">
+  <h2 class="hotels-title">Liste des Hôtels</h2>
+    <!-- Filtre de recherche -->
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Rechercher un client..." [(ngModel)]="searchText">
+    </div>
+  <button (click)="openModalForAdd()" class="btn-add">
+    <i class="fas fa-plus-circle"></i> Ajouter un hôtel
+  </button>
+
+  <div class="table-responsive">
+    <table class="hotels-table">
+      <thead>
+        <tr class="table-header">
+          <th>Nom</th>
+          <th>Ville</th>
+          <th>Description</th>
+          <th>Étoiles</th>
+          <th>Equipements</th>
+          <th>Chambres</th>
+          <th>Offre</th>
+
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hotel-row" *ngFor="let hotel of hotels">
+          <td>{{ hotel.nom }}</td>
+          <td>{{ hotel.ville }}</td>
+          <td>{{ hotel.description }}</td>
+          <td>
+            <span class="status-badge stars">
+              <i class="fas fa-star"></i> {{ hotel.nbre_etoiles }}
+            </span>
+          </td>
+          <td>
+            {{ hotel.equipements }}
+          </td>
+          <td class="actions-cell">
+            <a [routerLink]="['/List-hotel-chambre', hotel.id]" class="btn-details">
+              <i class="fas fa-info-circle"></i> Chambres
+            </a>
+          </td>
+
+<!-- //offre -->
+<td>
+  <span [ngClass]="hotel.hasOffer ? 'text-success' : 'text-danger'">
+    <a *ngIf="hotel.hasOffer" 
+    class="text-success" 
+    style="cursor: pointer;" 
+    (click)="showOfferDetails(hotel.id!)">
+   Oui
+ </a>
+
+    <span *ngIf="!hotel.hasOffer">Non</span>
+  </span>
+
+</td>
+  <!-- <td class="actions-cell">
+
+  </td> -->
+
+  <!-- offre fin -->
+
+
+          <td>
+            <button (click)="editHotel(hotel)" class="btn-edit">
+              <i class="fas fa-edit"></i> Modifier
+            </button>
+            <button *ngIf="hotel.id !== undefined" (click)="deleteHotel(hotel.id!)" class="btn-delete">
+              <i class="fas fa-trash-alt"></i> Supprimer
+            </button>
+            <!-- Ajout d'une condition pour désactiver le lien si offre appliquée -->
+    <!-- <a class="actions-cell" [routerLink]="['/addoffre', hotel.id]"
+    class="btn btn-success btn-sm"
+    [class.disabled]="hotel.hasOffer"
+    [attr.title]="hotel.hasOffer ? 'Offre déjà appliquée' : 'Ajouter une offre'">
+   <i class="fas fa-plus"></i> Ajouter Offre
+ </a> -->
+ <button 
+ class="btn btn-sm btn-warning"
+ [disabled]="hotel.hasOffer"
+ [attr.title]="hotel.hasOffer ? 'Offre déjà appliquée' : 'Ajouter une offre'"
+ (click)="openModalForAddOffer(hotel.id!, hotel.nom)">
+ Ajouter Offre
+</button>
+
+
+
+
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Modal pour ajout d’une offre -->
+<div class="modal fade" id="offreModal" tabindex="-1" aria-labelledby="offreModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-3 shadow">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Ajouter une offre pour {{ hotelNom }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="submitOffre()">
+          <div class="mb-3">
+            <label class="form-label">Titre</label>
+            <input class="form-control" [(ngModel)]="offre.titre" name="titre" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" [(ngModel)]="offre.description" name="description" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Valeur de remise (%)</label>
+            <input type="number" class="form-control" [(ngModel)]="offre.valeur_remise" name="valeur_remise" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Date fin promotion</label>
+            <input type="date" class="form-control" [(ngModel)]="offre.date_fin_promo" name="date_fin_promo" required>
+          </div>
+          <button type="submit" class="btn btn-success" >Ajouter l’offre</button>
+         
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL Bootstrap -->
+<div class="modal fade" id="hotelModal" tabindex="-1" aria-labelledby="hotelModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hotelModalLabel">{{ editMode ? 'Modifier l\'hôtel' : 'Ajouter un hôtel' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <input [(ngModel)]="newHotel.nom" placeholder="Nom de l'hôtel" class="form-control mb-2" />
+        <input [(ngModel)]="newHotel.ville" placeholder="Ville" class="form-control mb-2" />
+        <input [(ngModel)]="newHotel.description" placeholder="Description" class="form-control mb-2" />
+        <input [(ngModel)]="newHotel.nbre_etoiles" placeholder="Nombre d'étoiles" class="form-control mb-2" />
+        <input [(ngModel)]="newHotel.image_hotel" placeholder="URL de l'image" class="form-control mb-2" />
+        <input [(ngModel)]="newHotel.equipements" placeholder="Equipements" class="form-control mb-2" />
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="saveHotel()">
+          {{ editMode ? 'Mettre à jour' : 'Ajouter' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucun hôtel -->
+  <div *ngIf="hotels.length === 0" class="no-results">
+    <i class="fas fa-hotel fa-3x text-muted mb-3"></i>
+    <h4>Aucun hôtel disponible</h4>
+    <p class="text-muted">Nous n'avons trouvé aucun hôtel correspondant à vos critères.</p>
+    <a routerLink="/" class="btn btn-outline-primary mt-3">
+      <i class="fas fa-arrow-left"></i> Retour à l'accueil
+    </a>
+  </div>
+
+
+</div>
+<!-- Modal Détails de l’Offre -->
+<div class="modal fade" id="offreDetailsModal" tabindex="-1" aria-labelledby="offreDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-3 shadow">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="offreDetailsModalLabel">Détails de l’offre</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedOffre">
+        <p><strong>Titre :</strong> {{ selectedOffre.titre }}</p>
+        <p><strong>Description :</strong> {{ selectedOffre.description }}</p>
+        <p><strong>Remise :</strong> {{ selectedOffre.valeur_remise }}%</p>
+        <p><strong>Date fin :</strong> {{ selectedOffre.date_fin_promo }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+  <!-- <div *ngIf="offreErrorMessage" class="alert alert-danger">
+    {{ offreErrorMessage }}
+  </div> -->
+</div>

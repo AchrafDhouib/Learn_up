@@ -1,0 +1,118 @@
+<div class="hotel-container">
+
+
+  <!-- Special Offers section -->
+<!-- Special Offers section -->
+<section class="special-offers-section">
+  <div class="gallery-container">
+    <div class="grid-item">
+      <img [src]="offres[0]?.imageUrl || 'https://sotufab.tn/wp-content/uploads/2024/03/clara_Plan-de-travail-1.jpg'"
+           alt="Hotel room"
+           class="gallery-image">
+    </div>
+    <div class="offers-content" *ngIf="offres.length > 0">
+      <div class="offer-badge">Limited Offer</div>
+      <h3 class="offers-title">{{ offres[0].titre }}</h3>
+      <p class="offers-subtitle">
+        {{ offres[0].description }}
+      </p>
+
+      <div class="discount-banner">
+        <span class="discount-value">-{{ offres[0].valeur_remise }}%</span>
+      </div>
+
+      <ul class="benefits-list">
+        <li class="benefit-item">
+          <span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          <span>Free Wi-Fi Service</span>
+        </li>
+        <li class="benefit-item">
+          <span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          <span>Best Rate Guarantee</span>
+        </li>
+        <li class="benefit-item">
+          <span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          <span>Free DSTV Access</span>
+        </li>
+      </ul>
+
+      <div class="offer-remaining" *ngIf="offres[0].date_fin_promo">
+        <i class="far fa-clock"></i> Valid until {{ offres[0].date_fin_promo | date:'dd/MM/yyyy' }}
+      </div>
+
+      <!-- <button class="cta-button">
+        View More <i class="fas fa-arrow-right"></i>
+      </button> -->
+    </div>
+  </div>
+</section>
+
+
+  <!-- Room Filter Tabs - Version améliorée -->
+  <div class="filter-section">
+    <h3 class="filter-title">Filtrer par type de chambre</h3>
+    <div class="filter-tabs">
+      <div *ngFor="let type of chambreTypes"
+           (click)="onChangeType(type)"
+           class="filter-tab"
+           [class.active]="selectedType === type">
+        <i [class]="getRoomTypeIcon(type)"></i>
+        <span>{{ type | titlecase }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Room Cards -->
+  <div class="room-cards-section">
+    <div *ngFor="let chambre of filteredChambres" class="room-card">
+      <div class="card-image">
+        <img [src]="chambre.image_chambre || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCiwmaR1G66dnnoeuRbDhvTN7ae_tHaNHZ4vSwkSDchg&s&ec=72940545'"
+             [alt]="'Chambre ' + chambre.type_chambre"
+             class="room-main-image">
+
+        <div class="room-badge" *ngIf="chambre.prix_avec_remise < chambre.prixparnuit">
+          Promotion
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="room-header">
+          <h3 class="room-title">Chambre {{ chambre.type_chambre | titlecase }}</h3>
+          <div class="room-rating">
+            <i *ngFor="let star of getStars(chambre.hotel?.nbre_etoiles || 3)"
+               class="fas fa-star"></i>
+          </div>
+        </div>
+
+        <div class="room-features">
+          <div class="feature">
+            <i class="fas fa-door-open"></i>
+            <span>Numéro: {{ chambre.numero }}</span>
+          </div>
+
+        </div>
+
+        <div class="price-section">
+          <div class="original-price" *ngIf="chambre.prix_avec_remise < chambre.prixparnuit">
+            {{ chambre.prixparnuit }} DT
+          </div>
+          <div class="discounted-price">
+            {{ chambre.prix_avec_remise }} DT <span class="per-night">/ nuit</span>
+          </div>
+          <div class="tax-info">TVA incluse</div>
+        </div>
+
+        <button class="book-button"
+                [routerLink]="['/formulairereservation']"
+                [queryParams]="{ chambreId: chambre.id }">
+          <i class="fas fa-calendar-check"></i> Réserver
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-rooms" *ngIf="filteredChambres.length === 0">
+    <i class="fas fa-bed"></i>
+    <p>Aucune chambre disponible pour cette catégorie</p>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container mt-5">
+    <h2>Ajouter une Offre pour l'Hôtel {{ hotelNom || 'Chargement...' }}</h2>
+  
+    <form (ngSubmit)="submitOffre()" #offreForm="ngForm">
+      <div class="mb-3">
+        <label for="titre" class="form-label">Titre de l'offre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="titre"
+          name="titre"
+          required
+          [(ngModel)]="offre.titre"
+        />
+      </div>
+  
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          name="description"
+          rows="3"
+          required
+          [(ngModel)]="offre.description"
+        ></textarea>
+      </div>
+  
+      <div class="mb-3">
+        <label for="valeur_remise" class="form-label">Remise (%)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="valeur_remise"
+          name="valeur_remise"
+          required
+          [(ngModel)]="offre.valeur_remise"
+          min="1"
+          max="100"
+        />
+      </div>
+  
+      <div class="mb-3">
+        <label for="date_fin_promo" class="form-label">Date de fin</label>
+        <input
+          type="date"
+          class="form-control"
+          id="date_fin_promo"
+          name="date_fin_promo"
+          required
+          [(ngModel)]="offre.date_fin_promo"
+        />
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!offreForm.form.valid">
+        Enregistrer l'Offre
+      </button>
+    </form>
+  </div>
+  

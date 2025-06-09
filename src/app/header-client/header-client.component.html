@@ -1,0 +1,58 @@
+<header class="modern-header">
+    <div class="header-container">
+      <nav class="header-nav-bar">
+        <div class="header-nav-logo">
+          <a routerLink="/">
+            <img src="https://res.cloudinary.com/joshuafolorunsho/image/upload/v1591615159/star_hotels_logo.png"
+                 alt="star hotels logo" class="logo-img">
+          </a>
+        </div>
+  
+        <ul class="header-nav-lists">
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/home" routerLinkActive="header-active">
+              Accueil
+            </a>
+          </li>
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/hotels" routerLinkActive="header-active">
+              Hôtels
+            </a>
+          </li>
+
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/ReservationClient" routerLinkActive="header-active">
+              Reservations
+            </a>
+          </li>
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/ConfirmCommentaires" routerLinkActive="header-active">
+              Commentaires
+            </a>
+          </li>
+          <li class="header-nav-list">
+            <ng-container *ngIf="!isLoggedIn; else logoutBtn">
+              <a class="btn btn-primary btn-login" routerLink="/register">
+                Se connecter
+              </a>
+            </ng-container>
+  
+            <ng-template #logoutBtn>
+              <span *ngIf="userName">Bienvenue {{ userName }} | </span>
+              <a class="btn btn-secondary btn-logout" (click)="logout()">
+                Se déconnecter
+              </a>
+            </ng-template>
+          </li>
+          
+        </ul>
+  
+        <!-- <div class="header-hamburger-icon" (click)="toggleMobileMenu()">
+          <div class="header-hamburger-line"></div>
+          <div class="header-hamburger-line"></div>
+          <div class="header-hamburger-line"></div>
+        </div> -->
+      </nav>
+    </div>
+  </header>
+  

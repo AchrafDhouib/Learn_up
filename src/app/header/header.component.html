@@ -1,0 +1,86 @@
+<header class="modern-header">
+  <div class="header-container">
+    <nav class="header-nav-bar">
+      <div class="header-nav-logo">
+        <a routerLink="/">
+          <img src="https://media.baamboozle.com/uploads/images/107372/1599453596_38288"
+               alt="star hotels logo" class="logo-img">
+        </a>
+      </div>
+
+      <ul class="header-nav-lists">
+ 
+
+        <!-- <ng-container *ngIf="userRole === 'admin'; else clientMenu">
+
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/Dashboard" routerLinkActive="header-active">
+              Dashboard
+            </a>
+          </li>
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/ListHotelAdmin" routerLinkActive="header-active">
+              Liste des Cours
+            </a>
+          </li>
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/ListReservationAdmin" routerLinkActive="header-active">
+              Inscriptions
+            </a>
+          </li>
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/ConfirmCommentaires" routerLinkActive="header-active">
+              Commentaires
+            </a>
+          </li>
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/ListUserAdmin" routerLinkActive="header-active">
+              Utilisateurs
+            </a>
+          </li>
+        </ng-container> -->
+
+        <ng-container>
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/home" routerLinkActive="header-active">
+              Accueil
+            </a>
+          </li>
+
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/hotels" routerLinkActive="header-active">
+              Cours
+            </a>
+          </li>
+          <li class="header-nav-list">
+            <a class="header-nav-link" routerLink="/ReservationClient" routerLinkActive="header-active">
+              Packs
+            </a>
+          
+        </ng-container>
+      </ul>
+
+      <div class="user-actions">
+        <ng-container *ngIf="isLoggedIn; else loginBtn">
+          <div class="user-profile">
+            <div class="user-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="user-info">
+              <span class="user-name">{{ userName }}</span>
+              <a class="logout-link" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+              </a>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #loginBtn>
+          <a class="btn btn-primary" routerLink="/register">
+            <i class="fas fa-sign-in-alt"></i> Connexion
+          </a>
+        </ng-template>
+      </div>
+    </nav>
+  </div>
+</header>

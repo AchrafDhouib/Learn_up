@@ -1,0 +1,58 @@
+<mat-sidenav-container *ngIf="userRole === 'admin' || userRole === 'teacher'">
+  <!-- Sidenav -->
+  <mat-sidenav #drawer fixedInViewport="true" mode="over" opened="false" style="width: 230px;">
+    <mat-toolbar color="primary">
+      <mat-icon>school</mat-icon>
+      <span> LearnUp </span>
+    </mat-toolbar>
+
+    <!-- Admin Menu -->
+    <mat-nav-list *ngIf="userRole === 'admin'">
+      <a mat-list-item routerLink="Dashboard"><mat-icon>dashboard</mat-icon> Dashboard</a>
+      <a mat-list-item routerLink="ListUserAdmin"><mat-icon>supervised_user_circle</mat-icon> Users</a>
+      <a mat-list-item routerLink="Disciplines"><mat-icon>list_alt</mat-icon> Disciplines</a>
+      <a mat-list-item routerLink="Specialities"><mat-icon>gradient</mat-icon> Specialities</a>
+    </mat-nav-list>
+
+    <!-- Teacher Menu -->
+    <mat-nav-list *ngIf="userRole === 'teacher'">
+      <a mat-list-item routerLink="Courses"><mat-icon>book</mat-icon> Courses</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Sidenav Content -->
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div fxLayout fxLayoutAlign="start center">
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+          <span> LearnUp </span>
+        </button>
+      </div>
+
+      <div fxFlex></div>
+
+      <div class="toolbar-separator"></div>
+
+      <button mat-button [matMenuTriggerFor]="userMenu" style="margin-left: 85%; margin-right: 5%;">
+        <img class="avatar" style="border-radius: 50%; width: 40px; height: 40px;" src='{{ userAvatar }}'/>
+        <mat-icon>account_circle</mat-icon>
+        <span fxHide fxShow.gt-sm>{{ userName }}</span>
+        <mat-icon fxHide.xs>keyboard_arrow_down</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item>
+          <mat-icon>account_box</mat-icon> Profile
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon> Logout
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <!-- <div class="content mt-80 mx-16">
+      <router-outlet></router-outlet>
+    </div> -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

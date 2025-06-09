@@ -1,0 +1,62 @@
+<div class="dashboard-layout">
+
+  <div class="main-content-wrapper">
+    <div class="clients-container">
+      <h2 class="clients-title">Liste des Utilisateurs</h2>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex gap-3 align-items-center">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="teacherRadio" name="userType"
+              [checked]="selectedRole === 'teacher'" (change)="changeRole('teacher')">
+            <label class="form-check-label" for="teacherRadio">Teachers</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="studentRadio" name="userType"
+              [checked]="selectedRole === 'student'" (change)="changeRole('student')">
+            <label class="form-check-label" for="studentRadio">Students</label>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Rechercher..." [(ngModel)]="searchText">
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="clients-table">
+          <thead>
+            <tr class="table-header">
+              <th>#</th>
+              <th>Avatar</th>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Activation</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of filteredUsers(); let i = index">
+              <td>{{ i + 1 }}</td>
+              <td><img [src]="user.avatar" width="50" height="50" class="rounded-circle" /></td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span class="badge" [class.bg-success]="user.is_active" [class.bg-danger]="!user.is_active">
+                  {{ user.is_active ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm" [class.btn-danger]="user.is_active" [class.btn-success]="!user.is_active"
+                        (click)="toggleActivation(user)">
+                  {{ user.is_active ? 'Deactivate' : 'Activate' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
