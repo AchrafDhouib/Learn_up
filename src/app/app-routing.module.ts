@@ -55,7 +55,7 @@ const routes: Routes = [
    // canActivate : [AuthGuard]
   },
   {
-    path: 'hotels',
+    path: 'cours',
     pathMatch: 'full',
     component: HotelComponent ,
     //canActivate : [AuthGuard]
@@ -93,7 +93,7 @@ const routes: Routes = [
     canActivate : [AuthGuard]
   },
   {
-    path: 'ReservationClient',
+    path: 'packs',
     pathMatch: 'full',
     component: ClientReservationComponent,
     canActivate : [AuthGuard]
